@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 02: Progress Step</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            height: 100vh;
+        }
+        .main-container {
+            width: 50%;
+            min-width: 300px;
+        }
+        .progress-container {
+            position: relative;
+
+            width: 100%;
+            min-width: 300px;
+            height: fit-content;
+
+        }
+        .progress {
+            position: relative;
+            display: flex;
+            z-index: 0;
+
+            width: 100%;
+            height: 10px;
+        }
+        .step {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            top: calc(0% - 8px);
+            z-index: 1;
+
+            width: 26px;
+            height: 26px;
+
+            background-color: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            transition: border 0.5s ease;
+                }
+        .step--1 {
+            left: calc(25% - 13px);
+        }
+        .step--2 {
+            left: calc(50% - 13px);
+        }
+        .step--3 {
+            left: calc(75% - 13px);
+        }
+        .step--4 {
+            left: calc(100% - 13px);
+        }
+        .step--current {
+            border: 2px solid #0075ff;
+
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+
+            width: 100%;
+            margin-top: 26px;
+        }
+        .button {
+            padding: 6px 14px;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            color: black;
+            cursor: pointer;
+        }
+        .button--next {
+            background-color: #0075ff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="progress-container">
+            <progress class="progress" value="1" max="4">
+            </progress>    
+            <span class="step step--1 step--current">1</span>
+            <span class="step step--2">2</span>
+            <span class="step step--3">3</span>
+            <span class="step step--4">4</span>
+        </div>
+        <div class="button-container">
+            <button id="btn-prev" class="button" type="button">Prev</button>
+            <button id="btn-next" class="button button--next" type="button">Next</button>
+        </div>
+    </div>
+    <script>
+        // Elements
+        const progress = document.querySelector(".progress");
+        const steps = document.querySelectorAll(".step");
+        const btnPrev = document.querySelector("#btn-prev");
+        const btnNext = document.querySelector("#btn-next");
+        // vars
+        let currentStep = 1;
+
+        function updateProgress (newCurrent) {
+            currentStep = newCurrent;
+            progress.value = currentStep;
+            steps[currentStep - 1].classList.add("step--current");
+        }
+
+        function prev () {
+            let newCurrent = currentStep - 1;
+            if ((newCurrent) >= 1){
+                steps[currentStep - 1].classList.remove("step--current");
+                updateProgress(newCurrent);
+            }
+        }
+
+        function next () {
+            let newCurrent = currentStep + 1;
+            if ((newCurrent) <= 4){
+                updateProgress(newCurrent);
+            }
+        }
+
+        btnPrev.addEventListener("click", prev);
+        btnNext.addEventListener("click", next);
+
+    </script>
+</body>
+</html>
