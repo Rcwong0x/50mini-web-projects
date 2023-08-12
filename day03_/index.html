@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>day 03: rotating navigation animatio</title>
+    <style>
+        :root {
+            --bg-color-body: #333333;
+            --bg-color-article: #fafafa;
+            --bg-color-buttons: #ff7979;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            overflow-x: hidden;
+            background-color: var(--bg-color-body);
+        }
+        .h1 {
+            font-size: 2rem;
+            padding: 16px 0 2px 0;
+        }
+        .h2 {
+            font-size: 1.8rem;
+            padding: 10px 0;
+        } 
+        .text {
+            padding: 16px 0;
+            line-height: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .burger-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+
+            height: 100px;
+            width: 100px;
+            background: var(--bg-color-buttons);
+            border-bottom-right-radius: 100%;
+        }
+        .burger-container__buton {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            height: 32px;
+            width: 32px;
+
+            transition: transform 1s ease;
+            cursor: pointer;
+        }
+        .burger-container__button--entry {
+            transform: rotate(45deg) translateX(-150px);
+        }
+        .burger-container__button--out {
+            transform: rotate(-45deg) translateY(-150px);
+
+        }
+        .main {
+            width: 100vw;
+            background-color: var(--bg-color-article);
+            z-index: 0;
+            transform-origin: top left;
+            transition: transform 1s ease;
+        }
+        .main--rotate {
+            transform: rotate(-20deg);
+        }
+        .entry {
+            height: fit-content;
+            width: 100%;
+            max-width: 1000px;
+            padding: 100px 50px;
+            margin: auto;
+            background-color: var(--bg-color-article);
+        }
+        .entry__intro {
+            padding-bottom: 16px; 
+        }
+        figure {
+            width: 100%;
+            height: fit-content;
+        }
+        figure img {
+            width: 100%;
+            height: auto;
+        }
+        .icontainer {
+            position: fixed;
+            left: -100%;
+            bottom: 52px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+            padding: 32px 24px;
+            color: white;
+
+            transition: left 1s ease;
+        }
+        .icontainer--show {
+            left: 0;
+
+        }
+        .icontainer__item {
+            display: flex;
+            gap: 14px;
+            justify-content: start;
+            align-items: center;
+        }
+        .icontainer__ico {
+            height: 24px;
+            width: 24px;
+        }
+        .item--1 {
+            position: relative;
+            left: 0;
+        }
+        .item--2 {
+            position: relative;
+            left: 15px;
+        }
+        .item--3 {
+            position: relative;
+            left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="burger-container">
+        <img id="burgerMenu" class="burger-container__buton" src="./img/burger.svg" alt="Burger menu icon">
+        <img id="closeMenu" class="burger-container__buton burger-container__button--entry" src="./img/close.svg" alt="close menu icon">
+    </div>
+    <main class="main">
+        <article class="entry">
+            <section class="entry__intro">
+                <h1 class="h1">Amazing article</h1>
+                <p><small><em>Florin Pop</em></small></p>
+            </section>
+            <section>
+                <p class="text">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi repellendus rem quos quia itaque necessitatibus sequi beatae in nulla, nesciunt expedita delectus, voluptatum iure? Facere vel nulla nesciunt ex maiores.
+                    Harum facere officia quibusdam dolores hic quasi ratione quo in exercitationem dignissimos voluptatibus natus quaerat ab aut, libero architecto eius pariatur, dolorum tempore autem. Doloribus obcaecati maxime tenetur iure molestiae.
+                    Eligendi ipsum tempore iure, ut quos ab voluptatum necessitatibus dolorum voluptas eaque ipsam natus minus laborum et asperiores quis veritatis impedit similique alias nostrum? Quis ad maxime accusantium debitis optio.
+                </p>
+            </section>
+            <section>
+                <h2 class="h2">My Cat</h2>
+                <figure>
+                    <img src="./img/chapie.webp" alt="Photo of my cat (chapie)">
+                </figure>
+                <p class="text">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam eaque fuga eveniet! Enim repudiandae tempore iure optio minima a similique, beatae natus. Laborum blanditiis in obcaecati necessitatibus dolorum at officia.
+                </p>
+            </section>
+        </article>
+    </main>
+    <div class="icontainer">
+        <div class="icontainer__item item--1"><img class="icontainer__ico" src="./img/home.svg" alt="Home icon"> <p>HOME</p></div>
+        <div class="icontainer__item item--2"><img class="icontainer__ico" src="./img/profile.svg" alt="Profile icon"> <p>PROFILE</p></div>
+        <div class="icontainer__item item--3"><img class="icontainer__ico" src="./img/mail.svg" alt="Mail icon"> <p>CONTACT</p></div>
+    </div>
+    <script>
+        const burgerMenu = document.querySelector("#burgerMenu");
+        const closeMenu = document.querySelector("#closeMenu");
+        const containerToRotate = document.querySelector(".main");
+        const icontainer = document.querySelector(".icontainer");
+
+        burgerMenu.addEventListener("click", () => {
+            burgerMenu.classList.toggle("burger-container__button--out");
+            closeMenu.classList.toggle("burger-container__button--entry");
+            containerToRotate.classList.toggle("main--rotate");
+            icontainer.classList.toggle("icontainer--show");
+        });
+        
+        closeMenu.addEventListener("click", () => {
+            burgerMenu.classList.toggle("burger-container__button--out");
+            closeMenu.classList.toggle("burger-container__button--entry");
+            containerToRotate.classList.toggle("main--rotate");
+            icontainer.classList.toggle("icontainer--show");
+        });
+    
+    </script>
+</body>
+</html>
