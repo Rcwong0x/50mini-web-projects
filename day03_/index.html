@@ -173,18 +173,19 @@
         const containerToRotate = document.querySelector(".main");
         const icontainer = document.querySelector(".icontainer");
 
-        burgerMenu.addEventListener("click", () => {
+        function applyTransitions () {
             burgerMenu.classList.toggle("burger-container__button--out");
             closeMenu.classList.toggle("burger-container__button--entry");
             containerToRotate.classList.toggle("main--rotate");
             icontainer.classList.toggle("icontainer--show");
+        }
+
+        burgerMenu.addEventListener("click", () => {
+            applyTransitions();
         });
         
         closeMenu.addEventListener("click", () => {
-            burgerMenu.classList.toggle("burger-container__button--out");
-            closeMenu.classList.toggle("burger-container__button--entry");
-            containerToRotate.classList.toggle("main--rotate");
-            icontainer.classList.toggle("icontainer--show");
+            applyTransitions();
         });
     
     </script>
